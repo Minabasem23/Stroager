@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Telegram Sender</title>
+</head>
 <body>
 
-<input id="msg" placeholder="اكتب رسالة">
-<button onclick="send()">إرسال</button>
+<h2>إرسال رسالة</h2>
+
+<input id="msg" type="text" placeholder="اكتب رسالتك">
+<button onclick="sendMessage()">إرسال</button>
 
 <script>
-async function send() {
+const BOT_TOKEN = "YOUR_BOT_TOKEN";
+const CHAT_ID = "YOUR_CHAT_ID";
+
+async function sendMessage() {
     const text = document.getElementById("msg").value;
 
-    const response = await fetch(
-        "https://api.telegram.org/8781905004:AAEQS0ZBY2I-IE-am7tqDhMBJ-gA1tw6rlY/sendMessage",
+    const res = await fetch(
+        `https://api.telegram.org/bot${7851139479:AAEmXTXLFjW9EJNLDsrordM8Y9nKcBkOYEc}/sendMessage`,
         {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                chat_id: "CHAT_ID",
+                chat_id: CHAT_ID,
                 text: text
             })
         }
     );
 
-    const data = await response.json();
+    const data = await res.json();
 
-    if (data.ok) {
-        alert("تم إرسال الرسالة بنجاح");
-    } else {
-        alert("فشل الإرسال: " + data.description);
+    if(data.ok){
+        alert("تم الإرسال");
+    }else{
+        alert("حدث خطأ");
+        console.log(data);
     }
 }
-</script> 
+</script>
+
 </body>
 </html>
